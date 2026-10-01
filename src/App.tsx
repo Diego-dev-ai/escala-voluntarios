@@ -63,7 +63,9 @@ function VolunteerPage() {
     const channel = supabase.channel(`public-schedule-${data.schedule.id}`)
       .on("postgres_changes", { event: "*", schema: "public", table: "signups" }, () => refresh())
       .subscribe();
-    return () => { supabase.removeChannel(channel); };
+    return () => {
+  if (supabase) supabase.removeChannel(channel);
+};
   }, [data?.schedule.id]);
 
   const mine = selectedVolunteer ? data?.signups.filter(s => s.volunteer_id === selectedVolunteer.id) ?? [] : [];

@@ -113,7 +113,7 @@ as $$
     select 1
     from public.admin_config
     where id = 1
-      and pin_hash = crypt(p_pin, pin_hash)
+      and pin_hash = extensions.crypt(p_pin, pin_hash)
   );
 $$;
 

@@ -291,6 +291,19 @@ async function prepareNextMonth() {
 
       nextData = await loadSchedule(nextSlug);
     }
+  
+async function copyVotingLink() {
+  if (!data) return;
+
+  const link = `${window.location.origin}/escala/${data.schedule.slug}`;
+
+  try {
+    await navigator.clipboard.writeText(link);
+    alert("Link de votação copiado!");
+  } catch {
+    window.prompt("Copie o link de votação:", link);
+  }
+}
 
     if (!nextData) {
       throw new Error("Não foi possível carregar a escala do próximo mês.");

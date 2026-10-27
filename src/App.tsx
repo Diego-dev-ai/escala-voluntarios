@@ -56,7 +56,7 @@ function VolunteerPage() {
     finally { setLoading(false); }
   };
 
-  useEffect(() => { refresh(); }, [adminSlug]);
+  useEffect(() => { refresh(); }, [slug]);
 
   useEffect(() => {
     if (!supabase || !data?.schedule.id) return;

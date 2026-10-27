@@ -230,7 +230,7 @@ function AdminPage() {
 }
 
 function AdminDashboard({ onLogout }: { onLogout: () => void }) {
-  const slug = currentSlug();
+  const [adminSlug, setAdminSlug] = useState(currentSlug());
   const [data, setData] = useState<Awaited<ReturnType<typeof loadSchedule>>>(null);
   const [volunteers, setVolunteers] = useState<Volunteer[]>([]);
   const [newName, setNewName] = useState("");

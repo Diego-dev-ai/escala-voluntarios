@@ -291,6 +291,7 @@ async function prepareNextMonth() {
 
       nextData = await loadSchedule(nextSlug);
     }
+}
 
     if (!nextData) {
       throw new Error("Não foi possível carregar a escala do próximo mês.");

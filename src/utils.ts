@@ -42,11 +42,13 @@ export function periodLabel(period: Period) {
   return period === "morning" ? "Manhã" : "Noite";
 }
 
+
 export function defaultTimes(period: Period) {
   return period === "morning"
-    ? { arrival: "9h15", service: "10h" }
-    : { arrival: "18h15", service: "19h" };
+    ? { arrival: "8h50", service: "10h" }
+    : { arrival: "17h50", service: "19h" };
 }
+
 
 export function selectedCount(signups: Signup[], volunteerId: string) {
   return signups.filter(s => s.volunteer_id === volunteerId).length;

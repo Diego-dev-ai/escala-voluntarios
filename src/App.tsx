@@ -261,6 +261,49 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
     catch (e:any) { setError(e.message || "Erro ao adicionar."); }
   }
 
+  
+async function prepareNextMonth() {
+  setError("");
+
+  const currentDate = data
+    ? new Date(data.schedule.year, data.schedule.month - 1, 1)
+    : new Date();
+
+  const nextDate = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() + 1,
+    1
+  );
+
+  const year = nextDate.getFullYear();
+  const month = nextDate.getMonth() + 1;
+  const nextSlug = `${year}-${String(month).padStart(2, "0")}`;
+
+  try {
+    let nextData = await loadSchedule(nextSlug);
+
+    if (!nextData) {
+      await createSchedule(
+        year,
+        month,
+        data?.schedule.min_slots ?? 2
+      );
+
+      nextData = await loadSchedule(nextSlug);
+    }
+
+    if (!nextData) {
+      throw new Error("Não foi possível carregar a escala do próximo mês.");
+    }
+
+    setAdminSlug(nextSlug);
+    setData(nextData);
+    setVolunteers(nextData.volunteers);
+  } catch (e: any) {
+    setError(e.message || "Não foi possível preparar o próximo mês.");
+  }
+}
+
   async function closeOrOpen() {
     if (!data) return;
     try { await updateScheduleStatus(data.schedule.id, data.schedule.status === "open" ? "closed" : "open"); await refresh(); }

@@ -291,7 +291,6 @@ async function prepareNextMonth() {
 
       nextData = await loadSchedule(nextSlug);
     }
-}
 
     if (!nextData) {
       throw new Error("Não foi possível carregar a escala do próximo mês.");
@@ -303,8 +302,8 @@ async function prepareNextMonth() {
   } catch (e: any) {
     setError(e.message || "Não foi possível preparar o próximo mês.");
   }
+}
 
-  
 async function copyVotingLink() {
   if (!data) return;
 

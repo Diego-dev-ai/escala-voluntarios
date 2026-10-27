@@ -349,11 +349,33 @@ async function copyVotingLink() {
       {error && <ErrorBox message={error}/>}
       {!data ? <div className="empty-admin"><CalendarDays size={42}/><h3>Escala do mês ainda não criada</h3><p>Crie a escala para gerar automaticamente os domingos e os dois turnos.</p><button className="primary-btn" onClick={ensureCurrentSchedule}><Plus size={18}/>Criar escala do mês</button></div> :
       <>
-        <div className="admin-actions">
-          <button className="secondary-btn" onClick={refresh}><RefreshCw size={17}/>Atualizar</button>
-          <button className="secondary-btn" onClick={exportText}><Copy size={17}/>Copiar escala</button>
-          <button className={data.schedule.status === "open" ? "danger-btn" : "primary-btn"} onClick={closeOrOpen}><Lock size={17}/>{data.schedule.status === "open" ? "Encerrar escala" : "Reabrir escala"}</button>
-        </div>
+       
+<div className="admin-actions">
+  <button className="secondary-btn" onClick={refresh}>
+    <RefreshCw size={17}/>Atualizar
+  </button>
+
+  <button className="secondary-btn" onClick={exportText}>
+    <Copy size={17}/>Copiar escala
+  </button>
+
+  <button className="secondary-btn" onClick={prepareNextMonth}>
+    Preparar próximo mês
+  </button>
+
+  <button className="secondary-btn" onClick={copyVotingLink}>
+    <Copy size={17}/>Copiar link de votação
+  </button>
+
+  <button
+    className={data.schedule.status === "open" ? "danger-btn" : "primary-btn"}
+    onClick={closeOrOpen}
+  >
+    <Lock size={17}/>
+    {data.schedule.status === "open" ? "Encerrar escala" : "Reabrir escala"}
+  </button>
+</div>
+
 
         <div className="tabs"><button className={tab==="scale"?"active":""} onClick={()=>setTab("scale")}>Visão da escala</button><button className={tab==="team"?"active":""} onClick={()=>setTab("team")}>Equipe</button></div>
 

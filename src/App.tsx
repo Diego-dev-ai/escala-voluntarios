@@ -291,6 +291,18 @@ async function prepareNextMonth() {
 
       nextData = await loadSchedule(nextSlug);
     }
+
+    if (!nextData) {
+      throw new Error("Não foi possível carregar a escala do próximo mês.");
+    }
+
+    setAdminSlug(nextSlug);
+    setData(nextData);
+    setVolunteers(nextData.volunteers);
+  } catch (e: any) {
+    setError(e.message || "Não foi possível preparar o próximo mês.");
+  }
+
   
 async function copyVotingLink() {
   if (!data) return;
@@ -302,18 +314,6 @@ async function copyVotingLink() {
     alert("Link de votação copiado!");
   } catch {
     window.prompt("Copie o link de votação:", link);
-  }
-}
-
-    if (!nextData) {
-      throw new Error("Não foi possível carregar a escala do próximo mês.");
-    }
-
-    setAdminSlug(nextSlug);
-    setData(nextData);
-    setVolunteers(nextData.volunteers);
-  } catch (e: any) {
-    setError(e.message || "Não foi possível preparar o próximo mês.");
   }
 }
 

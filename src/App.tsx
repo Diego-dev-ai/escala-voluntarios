@@ -389,7 +389,7 @@ async function copyVotingLink() {
           <div className="admin-scale">
             {[...new Set(data.slots.map(s=>s.service_date))].map(date => <div className="admin-day" key={date}>
               <div className="admin-day-head"><strong>{formatDate(date)}</strong><span>{sundayContext(date)}</span></div>
-              {data.slots.filter(s=>s.service_date===date).map(slot => {
+              {data.slots.filter(s=>s.service_date===date).sort((a, b) => (a.period === "morning" ? 0 : 1) - (b.period === "morning" ? 0 : 1)).map(slot => {
                 const names = data.signups.filter(x=>x.slot_id===slot.id).map(x=>data.volunteers.find(v=>v.id===x.volunteer_id)?.name).filter(Boolean);
                 return <div className={`admin-slot ${names.length===0 ? "empty":""}`} key={slot.id}>
                   <div><strong>{periodLabel(slot.period)}</strong><span>{defaultTimes(slot.period).arrival} · {defaultTimes(slot.period).service}</span></div>

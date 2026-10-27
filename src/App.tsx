@@ -126,7 +126,7 @@ function VolunteerPage() {
           {sundays.map(date => {
             const past = isPast(date);
             const context = sundayContext(date);
-            const slots = data.slots.filter(s => s.service_date === date);
+            const slots = data.slots.filter(s => s.service_date === date).sort((a, b) => (a.period === "morning" ? 0 : 1) - (b.period === "morning" ? 0 : 1));
             return <section key={date} className={`sunday-card ${context === "HOJE" ? "today" : ""} ${past ? "past" : ""}`}>
               <div className="sunday-head">
                 <div><span className="date-weekday">{formatDate(date).split(",")[0]}</span><strong>{new Date(`${date}T12:00:00`).toLocaleDateString("pt-BR", {day:"2-digit", month:"2-digit"})}</strong></div>

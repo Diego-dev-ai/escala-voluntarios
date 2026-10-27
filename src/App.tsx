@@ -239,7 +239,7 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
 
   const refresh = async () => {
     try {
-      const d = await loadSchedule(slug);
+      const d = await loadSchedule(adminSlug);
       setData(d);
       if (d) setVolunteers(d.volunteers);
     } catch (e: any) { setError(e.message || "Erro ao carregar."); }
